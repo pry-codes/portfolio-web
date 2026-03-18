@@ -1,0 +1,18 @@
+packages:
+  "framer-motion": "For smooth scroll animations and cute hover effects on elements"
+  "react-type-animation": "For the typewriter effect in the hero section"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to merge tailwind classes safely"
+
+images:
+  - path: "artifacts/portfolio/public/images/hero-illustration.png"
+    description: "Cute kawaii anime style 3D illustration of a girl sitting at a pastel desk coding on a laptop, surrounded by floating glowing stars, hearts, and sparkles. Pastel color palette with soft pinks, lavender, and mint. Dreamy and magical lighting, soft shadows, rounded shapes."
+    aspect_ratio: "1:1"
+  - path: "artifacts/portfolio/public/images/about-illustration.png"
+    description: "Cute kawaii 3D illustration of a stack of pastel colored books, a small friendly robot character, and a cute cup of coffee with latte art. Floating magical sparkles, pastel mint, peach, and baby blue colors, soft lighting, glossy texture."
+    aspect_ratio: "1:1"
+
+notes:
+  - This is a purely frontend portfolio, no backend required.
+  - Using Framer Motion for scroll reveals and floating animations.
+  - Theme is cute, pastel, and kawaii.
