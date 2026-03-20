@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-const roles = ["Software Developer 💻", "AI/ML Enthusiast 🤖", "Python Learner 🐍", "Problem Solver ✨"];
+const roles = [
+  "Software Developer 💻",
+  "AI/ML Enthusiast 🤖",
+  "Python Learner 🐍",
+  "Problem Solver ✨",
+];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -8,19 +13,29 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const current = roles[roleIndex];
-    let timeout: ReturnType<typeof setTimeout>;
+    const currentRole = roles[roleIndex];
 
-    if (!isDeleting && displayed.length < current.length) {
-      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
-    } else if (!isDeleting && displayed.length === current.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 1800);
-    } else if (isDeleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 45);
-    } else if (isDeleting && displayed.length === 0) {
-      setIsDeleting(false);
-      setRoleIndex((i) => (i + 1) % roles.length);
-    }
+    const handleTyping = () => {
+      if (!isDeleting && displayed.length < currentRole.length) {
+        setDisplayed(currentRole.slice(0, displayed.length + 1));
+      } else if (!isDeleting && displayed.length === currentRole.length) {
+        setIsDeleting(true);
+      } else if (isDeleting && displayed.length > 0) {
+        setDisplayed(currentRole.slice(0, displayed.length - 1));
+      } else if (isDeleting && displayed.length === 0) {
+        setIsDeleting(false);
+        setRoleIndex((i) => (i + 1) % roles.length);
+      }
+    };
+
+    const timeout = setTimeout(
+      handleTyping,
+      !isDeleting && displayed.length === currentRole.length
+        ? 1800
+        : isDeleting
+        ? 45
+        : 80
+    );
 
     return () => clearTimeout(timeout);
   }, [displayed, isDeleting, roleIndex]);
@@ -28,25 +43,33 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center gradient-hero overflow-hidden pt-16"
+      className="w-full max-w-full overflow-x-hidden relative min-h-screen flex items-center justify-center gradient-hero pt-16"
     >
+      {/* Bubble decorations */}
       <div
         className="bubble-decoration"
         style={{
-          width: 400, height: 400,
+          position: "absolute",
+          width: 400,
+          height: 400,
           background: "radial-gradient(circle, rgba(255,183,197,0.4) 0%, transparent 70%)",
-          top: "-100px", right: "-100px",
+          top: "-100px",
+          right: "-100px",
         }}
       />
       <div
         className="bubble-decoration"
         style={{
-          width: 300, height: 300,
+          position: "absolute",
+          width: 300,
+          height: 300,
           background: "radial-gradient(circle, rgba(201,184,245,0.4) 0%, transparent 70%)",
-          bottom: "0", left: "-50px",
+          bottom: "0",
+          left: "-50px",
         }}
       />
 
+      {/* Main content */}
       <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
         <div className="animate-bounce-gentle inline-block mb-6">
           <div
@@ -60,8 +83,14 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
-          style={{ background: "rgba(255,183,197,0.35)", color: "#a04060", border: "1px solid rgba(255,183,197,0.5)" }}>
+        <div
+          className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+          style={{
+            background: "rgba(255,183,197,0.35)",
+            color: "#a04060",
+            border: "1px solid rgba(255,183,197,0.5)",
+          }}
+        >
           <span className="animate-pulse-soft">✨</span>
           <span>Welcome to my little corner!</span>
           <span className="animate-pulse-soft">✨</span>
@@ -81,13 +110,21 @@ export default function Hero() {
         </h1>
 
         <div className="h-10 flex items-center justify-center mb-6">
-          <p className="text-lg md:text-2xl font-bold" style={{ color: "#8060a0", fontFamily: "'Nunito', sans-serif" }}>
+          <p
+            className="text-lg md:text-2xl font-bold"
+            style={{ color: "#8060a0", fontFamily: "'Nunito', sans-serif" }}
+          >
             {displayed}
-            <span className="animate-pulse" style={{ color: "#d06090" }}>|</span>
+            <span className="animate-pulse" style={{ color: "#d06090" }}>
+              |
+            </span>
           </p>
         </div>
 
-        <p className="text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed font-semibold" style={{ color: "#7060a0" }}>
+        <p
+          className="text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed font-semibold"
+          style={{ color: "#7060a0" }}
+        >
           Motivated & curious learner exploring the magic of{" "}
           <span style={{ color: "#c06080" }}>Software Development</span> &{" "}
           <span style={{ color: "#8060c0" }}>Artificial Intelligence</span> 🌟
@@ -96,7 +133,12 @@ export default function Hero() {
         <div className="flex flex-wrap gap-4 justify-center">
           <a
             href="#projects"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("#projects")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="px-8 py-3 rounded-full font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
             style={{
               background: "linear-gradient(135deg, #d06090 0%, #9060c0 100%)",
@@ -107,7 +149,12 @@ export default function Hero() {
           </a>
           <a
             href="#contact"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("#contact")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="px-8 py-3 rounded-full font-bold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
             style={{
               background: "rgba(255,255,255,0.7)",

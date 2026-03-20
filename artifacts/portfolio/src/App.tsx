@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import Hero from "@/pages/Hero";
-import About from "@/pages/About";
-import Skills from "@/pages/Skills";
-import Projects from "@/pages/Projects";
-import Education from "@/pages/Education";
-import Achievements from "@/pages/Achievements";
-import Contact from "@/pages/Contact";
-import Navbar from "@/components/Navbar";
-import FloatingDecorations from "@/components/FloatingDecorations";
+import Hero from "./pages/Hero";
+import About from "./pages/About";
+import Skills from "./pages/Skills";
+import Projects from "./pages/Projects";
+import Education from "./pages/Education";
+import Achievements from "./pages/Achievements";
+import Contact from "./pages/Contact";
+import Navbar from "./components/Navbar";
+import FloatingDecorations from "./components/FloatingDecorations";
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,7 +20,6 @@ function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden font-sans">
-      <FloatingDecorations />
       <Navbar scrolled={scrolled} />
       <main>
         <Hero />
